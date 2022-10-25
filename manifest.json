@@ -21,5 +21,11 @@
             "48": "images/icon-48.png"
         }
     },
-    "permissions": ["activeTab", "scripting"]
+    "permissions": [
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "https://api-free.deepl.com/*"
+    ]
 }

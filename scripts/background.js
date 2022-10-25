@@ -1,4 +1,5 @@
 const twitch = "https://www.twitch.tv";
+const auth_key = ""
 
 chrome.runtime.onInstalled.addListener(() => {
     chrome.action.setBadgeText({
@@ -26,4 +27,27 @@ chrome.action.onClicked.addListener(async (tab) => {
             console.log("OFF Translation");
         }
     }
+})
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    fetch(`https://api-free.deepl.com/v2/translate?text=${encodeURI(request)}&target_lang=JA`, {
+        method: "POST",
+        headers: {
+            "Authorization": `DeepL-Auth-Key ${auth_key}`,
+        }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        console.log(data.translations[0])
+        sendResponse({
+            status: 0,
+            detail: data.translations[0]
+        })
+    })
+    .catch((err) => {
+        sendResponse({
+            status: 1
+        })
+    })
+    return true
 })

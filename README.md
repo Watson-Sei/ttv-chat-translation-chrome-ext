@@ -5,6 +5,8 @@ Translate Twitch Chat in real time using Google or Deepl.
 ## Install 
 
 ### Chromium based browsers
-- coming soon
 
-
+1. Download this file
+2. Enable developer mode from your browser's extension management page
+3. Please read "Loading unpackaged extensions".
+4. Right-click the extension and select the option that appears to set DeepL's private key.

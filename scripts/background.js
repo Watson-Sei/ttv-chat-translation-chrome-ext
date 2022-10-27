@@ -1,5 +1,5 @@
 const twitch = "https://www.twitch.tv";
-const auth_key = ""
+let auth_key = ""
 
 chrome.runtime.onInstalled.addListener(() => {
     chrome.action.setBadgeText({
@@ -19,6 +19,9 @@ chrome.action.onClicked.addListener(async (tab) => {
 
         if (nextState === "ON") {
             console.log("ON Translation");
+            chrome.storage.local.get("auth_key", (items) => {
+                auth_key = items.auth_key;
+            })
             chrome.scripting.executeScript({
                 target: { tabId: tab.id },
                 files: ['scripts/content-script.js']

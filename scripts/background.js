@@ -33,24 +33,33 @@ chrome.action.onClicked.addListener(async (tab) => {
 })
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    fetch(`https://api-free.deepl.com/v2/translate?text=${encodeURI(request)}&target_lang=JA`, {
-        method: "POST",
-        headers: {
-            "Authorization": `DeepL-Auth-Key ${auth_key}`,
-        }
-    })
-    .then((res) => res.json())
-    .then((data) => {
-        console.log(data.translations[0])
-        sendResponse({
-            status: 0,
-            detail: data.translations[0]
+    if (request.type == "translate") {
+        fetch(`https://api-free.deepl.com/v2/translate`, {
+            method: "POST",
+            headers: {
+                "Authorization": `DeepL-Auth-Key ${auth_key}`,
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `text=${encodeURI(request.translate_base)}&target_lang=JA`
         })
-    })
-    .catch((err) => {
-        sendResponse({
-            status: 1
+        .then((res) => res.json())
+        .then((data) => {
+            sendResponse({
+                status: 0,
+                detail: data.translations[0]
+            })
         })
-    })
+        .catch((err) => {
+            sendResponse({
+                status: 1
+            })
+        })
+    } 
+    if (request.type == "switch") {
+        chrome.action.getBadgeText({tabId: sender.tab.id})
+            .then((result) => {
+                sendResponse({result: result})
+            });
+    }
     return true
 })

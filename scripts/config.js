@@ -5,12 +5,6 @@ function Save() {
     })
 }
 
-function Get() {
-    chrome.storage.local.get("auth_key", (items) => {
-        console.log(items.auth_key);
-    })
-}
-
 function Load() {
     chrome.storage.local.get("auth_key", (items) => {
         document.getElementById("input_auth_key").value = items.auth_key;
@@ -20,4 +14,3 @@ function Load() {
 document.addEventListener("DOMContentLoaded", Load);
 
 document.getElementById("save_button").addEventListener("click", Save);
-document.getElementById("get_button").addEventListener("click", Get);

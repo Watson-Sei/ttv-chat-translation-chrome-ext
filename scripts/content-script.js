@@ -8,7 +8,7 @@ window.addEventListener("load", (event) => {
                     if (translate_base.indexOf("=&gt;") != -1 || translate_base.length == 0) {
                     } else {
                         detail = await DealWithDeepl(translate_base)
-                        element.innerHTML = `<span class="text-fragment" data-a-target="chat-message-text"> ${detail.detected_source_language}=>JP ${detail.text}</span>`
+                        element.innerHTML = `<span class="text-fragment" data-a-target="chat-message-text"> ${detail.detected_source_language}=>${detail.target_language} ${detail.text}</span>`
                     }
                     return
                 }))
